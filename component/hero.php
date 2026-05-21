@@ -3,7 +3,7 @@
     <div>
 
         <h1>
-            Portfolio Karya
+            Portofolio Karya
         </h1>
 
         <p>

@@ -10,17 +10,9 @@ switch($page){
         include "page/home.php";
         break;
 
-    case 'ui-design':
-        include "page/kategori/ui_design.php";
-        break;
-
-    case 'poster':
-        include "page/kategori/poster.php";
-        break;
-
-    case 'photography':
-        include "page/kategori/photography.php";
-        break;
+    case 'kategori':
+    include "page/kategori/kategori.php";
+    break;
 
     case 'detail':
         include "page/detail.php";

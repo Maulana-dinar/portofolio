@@ -28,7 +28,7 @@ $query = mysqli_query(
     <div class="text-center mb-5">
 
         <h1 class="fw-bold">
-            My Portfolio
+            My Portofolio
         </h1>
 
         <p class="text-muted">

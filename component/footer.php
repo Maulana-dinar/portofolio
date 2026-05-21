@@ -1,10 +1,28 @@
+<?php
+
+require_once $_SERVER['DOCUMENT_ROOT']
+. '/portofolio_karya/config/Database.php';
+
+$database = new Database();
+$koneksi = $database->getConnection();
+
+$queryKategori = mysqli_query(
+
+    $koneksi,
+
+    "SELECT * FROM kategori
+     ORDER BY nama_kategori ASC"
+);
+
+?>
+
 <footer class="footer-section">
 
     <div class="container">
 
         <div class="row">
 
-            <!-- About -->
+            <!-- ABOUT -->
             <div class="col-md-4 mb-4">
 
                 <h3 class="footer-logo">
@@ -12,13 +30,13 @@
                 </h3>
 
                 <p class="footer-desc">
-                    Website portfolio karya dinamis menggunakan PHP dan MySQL
-                    untuk menampilkan hasil desain, fotografi, dan karya kreatif lainnya.
+                    Website portfolio dinamis menggunakan PHP dan MySQL
+                    untuk menampilkan berbagai karya kreatif dan profesional.
                 </p>
 
             </div>
 
-            <!-- Navigation -->
+            <!-- NAVIGATION -->
             <div class="col-md-4 mb-4">
 
                 <h5 class="footer-title">
@@ -27,27 +45,37 @@
 
                 <ul class="footer-menu">
 
+                    <!-- HOME -->
                     <li>
-                        <a href="?page=home">Home</a>
+
+                        <a href="index.php?page=home">
+
+                            Home
+
+                        </a>
+
                     </li>
 
-                    <li>
-                        <a href="?page=ui-design">UI Design</a>
-                    </li>
+                    <!-- KATEGORI DINAMIS -->
+                    <?php while($k = mysqli_fetch_assoc($queryKategori)){ ?>
 
                     <li>
-                        <a href="?page=poster">Poster</a>
+
+                        <a href="index.php?page=kategori&id=<?= $k['id_kategori']; ?>">
+
+                            <?= $k['nama_kategori']; ?>
+
+                        </a>
+
                     </li>
 
-                    <li>
-                        <a href="?page=photography">Photography</a>
-                    </li>
+                    <?php } ?>
 
                 </ul>
 
             </div>
 
-            <!-- Contact -->
+            <!-- CONTACT -->
             <div class="col-md-4 mb-4">
 
                 <h5 class="footer-title">
@@ -58,6 +86,7 @@
                     portfolio@email.com
                 </p>
 
+                <!-- SOCIAL MEDIA -->
                 <div class="social-icons">
 
                     <a href="#">
@@ -82,11 +111,11 @@
 
         </div>
 
-        <!-- Copyright -->
+        <!-- COPYRIGHT -->
         <div class="footer-bottom">
 
             <p>
-                © 2026 Portfolio Karya. All Rights Reserved.
+                © <?= date('Y'); ?> Portfolio Karya. All Rights Reserved.
             </p>
 
         </div>

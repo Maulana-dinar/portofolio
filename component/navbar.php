@@ -1,28 +1,34 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/portofolio_karya/config/Database.php';
+require_once $_SERVER['DOCUMENT_ROOT']
+. '/portofolio_karya/config/Database.php';
 
 $database = new Database();
 $koneksi = $database->getConnection();
 
-$kategori = mysqli_query(
+$queryKategori = mysqli_query(
+
     $koneksi,
-    "SELECT * FROM kategori"
+
+    "SELECT * FROM kategori
+     ORDER BY nama_kategori ASC"
 );
 
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
 
     <div class="container">
 
-        <a class="navbar-brand"
-           href="?page=home">
+        <!-- logo -->
+        <a class="navbar-brand fw-bold"
+           href="index.php?page=home">
 
-            Portfolio
+            Portofolio
 
         </a>
 
+        <!-- toggle mobile -->
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -32,15 +38,17 @@ $kategori = mysqli_query(
 
         </button>
 
+        <!-- menu -->
         <div class="collapse navbar-collapse"
              id="navbarNav">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-center">
 
+                <!-- home -->
                 <li class="nav-item">
 
                     <a class="nav-link"
-                       href="?page=home">
+                       href="index.php?page=home">
 
                         Home
 
@@ -48,36 +56,37 @@ $kategori = mysqli_query(
 
                 </li>
 
-                <li class="nav-item">
+                <!-- dropdown kategori -->
+                <li class="nav-item dropdown">
 
-                    <a class="nav-link"
-                       href="?page=ui-design">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
 
-                        UI Design
-
-                    </a>
-
-                </li>
-
-                <li class="nav-item">
-
-                    <a class="nav-link"
-                       href="?page=poster">
-
-                        Poster
+                        Kategori
 
                     </a>
 
-                </li>
+                    <ul class="dropdown-menu">
 
-                <li class="nav-item">
+                        <?php while($k = mysqli_fetch_assoc($queryKategori)){ ?>
 
-                    <a class="nav-link"
-                       href="?page=photography">
+                        <li>
 
-                        Photography
+                            <a class="dropdown-item"
 
-                    </a>
+                               href="index.php?page=kategori&id=<?= $k['id_kategori']; ?>">
+
+                                <?= $k['nama_kategori']; ?>
+
+                            </a>
+
+                        </li>
+
+                        <?php } ?>
+
+                    </ul>
 
                 </li>
 
