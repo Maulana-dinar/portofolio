@@ -42,14 +42,47 @@ if(isset($_GET['hapus'])){
 
     $id = $_GET['hapus'];
 
+    // cek apakah kategori masih dipakai karya
+    $cek = mysqli_query(
+
+        $koneksi,
+
+        "SELECT * FROM karya
+        WHERE id_kategori='$id'"
+    );
+
+    // jika masih ada karya
+    if(mysqli_num_rows($cek) > 0){
+
+        echo "
+
+        <script>
+
+            alert(
+                'Kategori tidak dapat dihapus karena masih digunakan pada karya!'
+            );
+
+            window.location='../../admin/index.php?page=data-kategori';
+
+        </script>
+
+        ";
+
+        exit;
+    }
+
+    // jika tidak dipakai
     mysqli_query(
+
         $koneksi,
 
         "DELETE FROM kategori
-         WHERE id_kategori='$id'"
+        WHERE id_kategori='$id'"
     );
 
-    header("Location: ../index.php?page=data-kategori");
+    header(
+        "Location: ../../admin/index.php?page=data-kategori"
+    );
     exit;
 }
 ?>
